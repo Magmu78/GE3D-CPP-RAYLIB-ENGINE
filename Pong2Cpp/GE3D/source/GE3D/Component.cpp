@@ -19,3 +19,18 @@ void Component::AddCompToGlobalList()
 {
 	GameManager::allComponents.push_back(std::make_shared<Component>(*this));
 }
+
+void Component::SetName(std::string newName)
+{
+	name = newName;
+}
+
+std::string Component::GetName()
+{
+	return name;
+}
+
+ComponentType Component::GetType()
+{
+	return type;
+}

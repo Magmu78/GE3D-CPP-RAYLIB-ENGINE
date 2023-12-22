@@ -119,7 +119,7 @@
     <ClInclude Include="GE3D\include\vendor\imgui\rlImGui.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="GE3D\include\GE3D\GMath.h">
+    <ClInclude Include="GE3D\include\GE3D\GE3DPrereqs.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,3 +14,5 @@ public:
 	void Draw();
 	//Cube(Vector3 position, Vector3 scale, Color color);
 };
+
+class Component;

@@ -1,8 +1,9 @@
 ﻿#include <GE3D/GameManager.h>
 #include <GE3D/GameObject.h>
 #include <GE3D/RigidbodyComponent.h>
+#include <GE3D/Component.h>
 #include <GE3D/Cube.h>
-#include <GE3D/GMath.h>
+#include <GE3D/GE3DPrereqs.h>
 #include <vector>
 #include <memory>
 #include <vendor/imgui/imgui.h>
@@ -97,63 +98,6 @@ void GameManager::Loop()
         // ImGui window
         ImGui::Begin("GameObject editor");
 
-        /* bool clickedOutside = true; // Variable pour détecter si un clic a été effectué en dehors des objets
-
-        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
-        {
-            // Récupérer la position du clic de souris
-            Vector2 mousePosition = GetMousePosition();
-
-            // Vérifier si le clic de souris a été effectué sur l'un des objets
-            for (auto& gameObject : GameManager::allGameObjects)
-            {
-                currentObject = gameObject.get(); 
-                if (currentObject->GetComponent(cubeComponent))
-                {
-                    if (CheckCollisionPointRec(mousePosition, { currentObject->transform.scale.x, currentObject->transform.scale.y }))
-                    {
-                        currentObject->selected = true; // Marquer l'objet comme sélectionné
-                        clickedOutside = false; // Le clic a été effectué sur un objet
-                    }
-                    else
-                    {
-                        currentObject->selected = false; // Désélectionner l'objet s'il a été précédemment sélectionné
-                    }
-                }
-            }
-        }
-
-        if (clickedOutside)
-        {
-            // Désélectionner tous les objets si le clic a été effectué en dehors de leur zone
-            for (auto& gameObject : GameManager::allGameObjects)
-            {
-                currentObject = gameObject.get();
-                currentObject->selected = false;
-            }
-        } */
-        /* if (currentObject != nullptr)
-        {
-            if (currentObject->selected)
-            {
-                // Utilisation de ImGui::InputFloat pour une entrée float
-                ImGui::InputFloat("Position X", &currentObject->transform.position.x, 0.1f, 1.0f);
-                ImGui::InputFloat("Position Y", &currentObject->transform.position.y, 0.1f, 1.0f);
-                ImGui::InputFloat("Position Z", &currentObject->transform.position.z, 0.1f, 1.0f);
-                ImGui::Checkbox("Active", &currentObject->active);
-                ImGui::Checkbox("Debug Mode", &debugMode);
-
-                if (debugMode)
-                {
-                    ImGui::Text("ID : %d", currentObject->id);
-                }
-            }
-        }
-        else
-        {
-            std::cout << "Current object = nullptr" << std::endl;
-        } */
-
         ImGui::InputFloat("Position X", &cube.transform.position.x, 0.1f, 1.0f);
         ImGui::InputFloat("Position Y", &cube.transform.position.y, 0.1f, 1.0f);
         ImGui::InputFloat("Position Z", &cube.transform.position.z, 0.1f, 1.0f);
@@ -168,10 +112,21 @@ void GameManager::Loop()
 
             ImGui::Text("Address: %p", static_cast<void*>(cubePtr));
         }
-
+        
         for (const auto& component : GameManager::allComponents)
         {
-            component->Update(deltaTime);
+            switch (component->GetType())
+            {
+            case ComponentType::CubeComponent:
+                if(auto cubeComponent = dynamic_cast<Cube*>(component.get()))
+                {
+                    cubeComponent->Update(deltaTime);
+                }
+                break;
+
+            default:
+                break;
+            }
         }
 
         for (const auto& gameObject : GameManager::allGameObjects)

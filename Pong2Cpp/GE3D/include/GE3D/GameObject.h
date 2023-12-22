@@ -10,7 +10,7 @@ class GameObject
 {
 public:
 	GameObject();
-	//GameObject(const GameObject& copy) = delete;
+	GameObject(const GameObject& copy);
 
 	TransformComponent transform;
 	std::vector<Component*> attached_components;
@@ -22,5 +22,6 @@ public:
 	
 	void Update(float &deltaTime);
 	void AddComponent(Component* newComponent);
+	void AddComponent(ComponentType componentType);
 	Component* GetComponent(Component component);
 };

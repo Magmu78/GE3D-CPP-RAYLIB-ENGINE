@@ -5,6 +5,10 @@ Cube::Cube()
 {
 	color = RED;
 
+	name = "Cube Shape";
+
+	type = ComponentType::CubeComponent;
+
 	AddCompToGlobalList();
 }
 
@@ -16,6 +20,7 @@ Cube::Cube()
 void Cube::Update(float deltaTime)
 {
 	Draw();
+	std::cout << "Cube Updated" << std::endl;
 }
 
 void Cube::Draw()

@@ -158,7 +158,7 @@
     <ClInclude Include="GE3D\include\GE3D\Cube.h" />
     <ClInclude Include="GE3D\include\GE3D\GameManager.h" />
     <ClInclude Include="GE3D\include\GE3D\Game.h" />
-    <ClInclude Include="GE3D\include\GE3D\GMath.h" />
+    <ClInclude Include="GE3D\include\GE3D\GE3DPrereqs.h" />
     <ClInclude Include="GE3D\include\GE3D\TransformComponent.h" />
     <ClInclude Include="GE3D\include\GE3D\RigidbodyComponent.h" />
     <ClInclude Include="GE3D\include\vendor\imgui\imconfig.h" />

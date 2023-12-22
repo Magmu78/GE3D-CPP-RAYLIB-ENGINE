@@ -4,6 +4,9 @@
 
 RigidbodyComponent::RigidbodyComponent()
 {
+	name = "RigidbodyComponent";
+	type = ComponentType::RigidbodyComponent;
+
 	mass = 1;
 	velocityY = 0;
 	gravity = true;
