@@ -53,7 +53,7 @@ void GameObject::AddComponent(ComponentType componentType)
         break;
 
     default:
-        std::cerr << "Unknown ComponentType\n";
+        std::cerr << "Unknown Component Type\n";
         return;  // Do nothing for unknown component types
     }
 
@@ -69,11 +69,24 @@ void GameObject::AddComponent(ComponentType componentType)
     }
 }
 
-Component* GameObject::GetComponent(Component component)
+Component* GameObject::GetComponent(Component* component)
 {
     for (Component* attachedComponent : attached_components)
     {
-        if (attachedComponent->GetName() == component.GetName())
+        if (attachedComponent->GetType() == component->GetType())
+        {
+            return attachedComponent;
+        }
+    }
+
+    return nullptr;
+}
+
+Component* GameObject::GetComponent(ComponentType type)
+{
+    for (Component* attachedComponent : attached_components)
+    {
+        if (attachedComponent->GetType() == type)
         {
             return attachedComponent;
         }

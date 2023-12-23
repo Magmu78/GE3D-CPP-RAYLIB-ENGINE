@@ -4,5 +4,6 @@ enum class ComponentType
 {
 	RigidbodyComponent,
 	TransformComponent,
-	CubeComponent
+	CubeComponent,
+	UndefinedType
 };

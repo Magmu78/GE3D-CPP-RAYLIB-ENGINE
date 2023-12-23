@@ -16,7 +16,7 @@ public:
 
 	GameObject* attachedGameObject;
 
-	virtual void Update(float deltaTime);
+	virtual void Update(float deltaTime) = 0;
 	virtual void AddCompToGlobalList();
 	
 	//Sets the name of the component to the passed "newName" argument
@@ -28,6 +28,6 @@ public:
 protected:
 	//Name in the editor
 	std::string name;
-	//Type of the component (Rigidbody, transform, etc...)
+	//Type of the component (Rigidbody, Transform, etc...)
 	ComponentType type;
 };

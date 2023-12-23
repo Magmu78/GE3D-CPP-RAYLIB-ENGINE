@@ -11,7 +11,8 @@
 #include <vendor/imgui/imgui_impl_raylib.h>
 #include "raylib.h"
 
-std::vector<std::shared_ptr<Component>> GameManager::allComponents;
+std::vector<std::shared_ptr<RigidbodyComponent>> GameManager::allRigidbodies;
+std::vector<std::shared_ptr<Cube>> GameManager::allCubes;
 std::vector<std::shared_ptr<GameObject>> GameManager::allGameObjects;
 
 GameManager::GameManager()
@@ -61,6 +62,8 @@ void GameManager::Loop()
 
     while (!WindowShouldClose())
     {
+        deltaTime = GetFrameTime();
+
         if (IsKeyPressed(KEY_B))
         {
             keyPressed = true;
@@ -113,26 +116,17 @@ void GameManager::Loop()
             ImGui::Text("Address: %p", static_cast<void*>(cubePtr));
         }
         
-        for (const auto& component : GameManager::allComponents)
-        {
-            switch (component->GetType())
-            {
-            case ComponentType::CubeComponent:
-                if(auto cubeComponent = dynamic_cast<Cube*>(component.get()))
-                {
-                    cubeComponent->Update(deltaTime);
-                }
-                break;
+        for (const auto& cube : GameManager::allCubes)
+            cube->Update(deltaTime);
 
-            default:
-                break;
-            }
-        }
+        for (const auto& rigidbody : GameManager::allRigidbodies)
+            rigidbody->Update(deltaTime);
 
         for (const auto& gameObject : GameManager::allGameObjects)
-        {
             gameObject->Update(deltaTime);
-        }
+        
+
+        
 
         DrawGrid(1000, 0.5f);
 

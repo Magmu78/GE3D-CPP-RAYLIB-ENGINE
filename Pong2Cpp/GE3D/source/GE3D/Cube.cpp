@@ -1,10 +1,8 @@
 #include <GE3D/Cube.h>
 #include <GE3D/GameObject.h>
 
-Cube::Cube()
+Cube::Cube() : color(WHITE)
 {
-	color = RED;
-
 	name = "Cube Shape";
 
 	type = ComponentType::CubeComponent;
@@ -25,5 +23,13 @@ void Cube::Update(float deltaTime)
 
 void Cube::Draw()
 {
-	DrawCube(attachedGameObject->transform.position, attachedGameObject->transform.scale.x, attachedGameObject->transform.scale.y, attachedGameObject->transform.scale.z, color);
+	if (attachedGameObject != nullptr)
+	{
+		DrawCube(attachedGameObject->transform.position, attachedGameObject->transform.scale.x, attachedGameObject->transform.scale.y, attachedGameObject->transform.scale.z, color);
+	}
+}
+
+void Cube::AddCompToGlobalList()
+{
+	GameManager::allCubes.push_back(std::make_shared<Cube>(*this));
 }

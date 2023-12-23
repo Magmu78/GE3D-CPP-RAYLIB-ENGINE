@@ -23,5 +23,6 @@ public:
 	void Update(float &deltaTime);
 	void AddComponent(Component* newComponent);
 	void AddComponent(ComponentType componentType);
-	Component* GetComponent(Component component);
+	Component* GetComponent(Component* component);
+	Component* GetComponent(ComponentType type);
 };

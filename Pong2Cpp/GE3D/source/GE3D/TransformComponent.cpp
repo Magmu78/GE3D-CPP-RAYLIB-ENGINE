@@ -8,3 +8,8 @@ TransformComponent::TransformComponent()
 	scale = { 1, 1, 1 };
 	rotation = { 0, 0, 0, 0 };
 }
+
+void TransformComponent::Update(float deltaTime)
+{
+
+}

@@ -6,8 +6,6 @@ Component::Component()
 	name = "defaultCompName";
 	enabled = true;
 	attachedGameObject = nullptr;
-
-	AddCompToGlobalList();
 }
 
 void Component::Update(float deltaTime)
@@ -17,7 +15,7 @@ void Component::Update(float deltaTime)
 
 void Component::AddCompToGlobalList()
 {
-	GameManager::allComponents.push_back(std::make_shared<Component>(*this));
+	std::cout << "AddCompToGlobalList executed (from Component.cpp)" << std::endl;
 }
 
 void Component::SetName(std::string newName)
