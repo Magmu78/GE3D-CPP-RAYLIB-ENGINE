@@ -18,7 +18,7 @@ Cube::Cube() : color(WHITE)
 void Cube::Update(float deltaTime)
 {
 	Draw();
-	std::cout << "Cube Updated" << std::endl;
+	//std::cout << "Cube Updated" << std::endl;
 }
 
 void Cube::Draw()
@@ -32,4 +32,14 @@ void Cube::Draw()
 void Cube::AddCompToGlobalList()
 {
 	GameManager::allCubes.push_back(std::make_shared<Cube>(*this));
+}
+
+Color Cube::GetColor()
+{
+	return color;
+}
+
+void Cube::SetColor(Color newColor)
+{
+	color = newColor;
 }

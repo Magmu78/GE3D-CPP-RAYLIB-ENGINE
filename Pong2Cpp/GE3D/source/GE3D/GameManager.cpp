@@ -44,7 +44,20 @@ void GameManager::Loop()
     cube.transform.scale = { 2, 1, 2 };
     cube.AddComponent(&cubeComponent);
     //cube.AddComponent(&cubeRigidbody);
-    cubeComponent.color = RED;
+    cube.AddComponent(ComponentType::RigidbodyComponent);
+    cubeComponent.SetColor(BLUE);
+
+    for (const auto& component : cube.attached_components)
+    {
+        std::cout << component->GetName() << std::endl;
+    }
+
+    //cube.GetComponent(ComponentType::CubeComponent)->SetName("Soufyane");
+
+    for (const auto& component : cube.attached_components)
+    {
+        std::cout << component->GetName() << std::endl;
+    }
 
     bool cameraLocked = false;
     bool keyPressed = false;
@@ -107,6 +120,21 @@ void GameManager::Loop()
         ImGui::Checkbox("Active", &cube.active);
         ImGui::Checkbox("Debug Mode", &debugMode);
 
+        if (ImGui::Button("Display Components"))
+        {
+            for (const auto& component : cube.attached_components)
+            {
+                ImGui::BeginChild(component->GetName().c_str());
+                ImGui::Text(component->GetName().c_str());
+
+                if (ImGui::Button("Close"))
+                {
+                    ImGui::EndChild();
+                    break;
+                }
+            }
+        }
+
         if (debugMode)
         {
             ImGui::Text("ID : %d", cube.id);
@@ -124,8 +152,6 @@ void GameManager::Loop()
 
         for (const auto& gameObject : GameManager::allGameObjects)
             gameObject->Update(deltaTime);
-        
-
         
 
         DrawGrid(1000, 0.5f);

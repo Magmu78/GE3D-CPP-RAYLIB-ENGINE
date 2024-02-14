@@ -6,8 +6,6 @@
 class Cube : public Component
 {
 public:
-	Color color;
-
 	Cube();
 	Cube(Color _color) : color(_color) {};
 
@@ -16,5 +14,10 @@ public:
 
 	void AddCompToGlobalList() override;
 
+	Color GetColor();
+	void SetColor(Color newColor);
+
 	//Cube(Vector3 position, Vector3 scale, Color color);
+private:
+	Color color;
 };
