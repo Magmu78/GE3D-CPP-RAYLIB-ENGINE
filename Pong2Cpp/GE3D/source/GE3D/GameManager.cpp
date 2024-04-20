@@ -37,14 +37,12 @@ void GameManager::Loop()
     float deltaTime = GetFrameTime();
 
     GameObject cube;
-    Cube cubeComponent;
-    RigidbodyComponent cubeRigidbody;
+    Cube cubeComponent(RED);
 
     cube.transform.position = { 0, 0, 0 };
     cube.transform.scale = { 2, 1, 2 };
-    cube.AddComponent(&cubeComponent);
-    //cube.AddComponent(&cubeRigidbody);
-    cube.AddComponent(ComponentType::RigidbodyComponent);
+    cube.AddComponent(ComponentType::CubeComponent);
+    //cube.AddComponent(ComponentType::RigidbodyComponent);
     cubeComponent.SetColor(BLUE);
 
     for (const auto& component : cube.attached_components)
@@ -53,12 +51,6 @@ void GameManager::Loop()
     }
 
     //cube.GetComponent(ComponentType::CubeComponent)->SetName("Soufyane");
-
-    for (const auto& component : cube.attached_components)
-    {
-        std::cout << component->GetName() << std::endl;
-    }
-
     bool cameraLocked = false;
     bool keyPressed = false;
     bool previousKeyPressed = false;
@@ -143,9 +135,16 @@ void GameManager::Loop()
 
             ImGui::Text("Address: %p", static_cast<void*>(cubePtr));
         }
-        
+
         for (const auto& cube : GameManager::allCubes)
+        {
+            //cube->Draw();
             cube->Update(deltaTime);
+            if (cube->attachedGameObject != nullptr)
+            {
+                std::cout << cube->attachedGameObject << "exists" << std::endl;
+            }
+        }    
 
         for (const auto& rigidbody : GameManager::allRigidbodies)
             rigidbody->Update(deltaTime);

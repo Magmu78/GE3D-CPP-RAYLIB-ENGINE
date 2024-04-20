@@ -18,7 +18,7 @@ GameObject::GameObject(const GameObject& copy) : active(copy.active), name(copy.
 
 void GameObject::Update(float& deltaTime)
 {
-
+    //std::cout << "Updated from GameObject::Update function" << std::endl;
 }
 
 void GameObject::AddComponent(Component* newComponent)
@@ -41,31 +41,40 @@ void GameObject::AddComponent(ComponentType componentType)
     switch (componentType)
     {
     case ComponentType::RigidbodyComponent:
-        newComponent = new RigidbodyComponent();  // Assuming RigidbodyComponent has a default constructor
+        newComponent = new RigidbodyComponent();
         break;
 
     case ComponentType::TransformComponent:
-        newComponent = new TransformComponent();  // Assuming TransformComponent has a default constructor
+        newComponent = new TransformComponent();
         break;
 
     case ComponentType::CubeComponent:
-        newComponent = new Cube();  // Assuming CubeComponent has a default constructor
+        newComponent = new Cube();
         break;
 
     default:
         std::cerr << "Unknown Component Type\n";
-        return;  // Do nothing for unknown component types
+        return;
     }
 
     if (newComponent->attachedGameObject == nullptr)
     {
         attached_components.push_back(newComponent);
         newComponent->attachedGameObject = this;
+        switch (newComponent->GetType())
+        {
+        case ComponentType::CubeComponent:
+            std::cout << "The type of component added is a cube component added" << std::endl;
+        case ComponentType::RigidbodyComponent:
+            std::cout << "The type of component added is a rigidbody component" << std::endl;
+        default:
+            break;
+        }
     }
     else
     {
         std::cerr << "You are trying to add a component that is already attached to another GameObject. This is not allowed." << std::endl;
-        delete newComponent;  // Clean up the allocated memory
+        delete newComponent;
     }
 }
 
